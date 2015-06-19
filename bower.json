@@ -1,0 +1,15 @@
+{
+  "name": "digiPet",
+  "version": "0.0.1",
+  "homepage": "https://github.com/kjhnns/digiPet",
+  "authors": [
+    "Johannes Klumpe <klumpe@live.de>"
+  ],
+  "description": "University Project",
+  "main": "main.go",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "assets/components"
+  ]
+}
