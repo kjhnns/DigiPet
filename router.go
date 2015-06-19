@@ -14,7 +14,8 @@ func initRouting() {
 	// g.LoadHTMLGlob("templates/view/*")
 	g.StaticFile("/favicon.ico", "./assets/favicon.png")
 
-	g.GET("/", ctrl.Home)
+	g.GET("/", ctrl.Index)
+	g.GET("/app", ctrl.App)
 
 	fmt.Println("} done.")
 }

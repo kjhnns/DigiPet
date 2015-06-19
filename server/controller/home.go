@@ -7,9 +7,15 @@ import (
 
 var g *gin.Engine
 
-func Home(c *gin.Context) {
+func App(c *gin.Context) {
 
-	c.HTML(http.StatusOK, "root.html", gin.H{
+	c.HTML(http.StatusOK, "appRoot.html", gin.H{
+		"title": "iCalculator",
+	})
+}
+
+func Index(c *gin.Context) {
+	c.HTML(http.StatusOK, "index.html", gin.H{
 		"title": "iCalculator",
 	})
 }
