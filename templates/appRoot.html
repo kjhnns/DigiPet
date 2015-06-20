@@ -38,7 +38,7 @@
                                     </div>
                                 </div>
                                 <div class="col-60">
-                                    <h3 style="margin-bottom: 0">DigiPet</h3> <small>(<i>installing</i>)</small>
+                                    <h3 style="margin-bottom: 0">DigiPet</h3> <small class="status">(<i>installing</i>)</small>
                                 </div>
                             </div>
                         </div>
@@ -51,9 +51,12 @@
             {{template "viewDigiPet" .}}
         </div>
     </div>
+    <script>
+        var __pps = {{.pps}}; // jshint ignore:line
+        var __dr = {{.dr}}; // jshint ignore:line
+    </script>
     <script type="text/javascript" src="/assets/components/framework7/dist/js/framework7.min.js"></script>
     <script type="text/javascript" src="/assets/lib/app.js"></script>
-    {{template "viewDigiPet.controller" .}}
 </body>
 
 </html>
