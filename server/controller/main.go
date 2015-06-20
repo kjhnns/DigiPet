@@ -1,4 +1,4 @@
-package app
+package controller
 
 import (
 	"github.com/gin-gonic/gin"
@@ -8,14 +8,11 @@ import (
 var g *gin.Engine
 
 func App(c *gin.Context) {
-
 	c.HTML(http.StatusOK, "appRoot.html", gin.H{
-		"title": "iCalculator",
+		"title": "x",
 	})
 }
 
 func Index(c *gin.Context) {
-	c.HTML(http.StatusOK, "index.html", gin.H{
-		"title": "iCalculator",
-	})
+	c.HTML(http.StatusOK, "index.html", gin.H{})
 }

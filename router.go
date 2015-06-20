@@ -12,7 +12,7 @@ func initRouting() {
 	g.Static("/assets", "./assets")
 	g.LoadHTMLGlob("templates/**")
 	// g.LoadHTMLGlob("templates/view/*")
-	g.StaticFile("/favicon.ico", "./assets/favicon.png")
+	g.StaticFile("/favicon.ico", "./assets/imgs/appIcon.png")
 
 	g.GET("/", ctrl.Index)
 	g.GET("/app", ctrl.App)
