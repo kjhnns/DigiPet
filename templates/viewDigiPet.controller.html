@@ -2,7 +2,6 @@
 {{if .pps}}
 <script>
 $$('.view.view-digipet').on('show', function() {
-
     myApp.alert('Here goes alert text', 'Custom Title!', function() {
         myApp.alert('Button clicked!');
     });
@@ -14,8 +13,6 @@ $$('.view.view-digipet').on('show', function() {
 {{else}}
 <script>
 $$('.view.view-digipet').on('show', function() {
-
-
     // show the activities picker anyways
     myApp.pickerModal('.picker-activies');
 });
