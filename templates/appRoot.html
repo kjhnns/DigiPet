@@ -16,35 +16,15 @@
     <div class="statusbar-overlay"></div>
     <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
+    <!-- <div class="panel panel-left panel-reveal">
         <div class="content-block">
             <p>Hier könnte Privacy information stehen</p>
         </div>
-    </div>
+    </div> -->
     <div class="views tabs">
         <!-- Home Screen -->
         <div class="view tab view-main active">
-            <div class="pages">
-                <div data-page="index" class="page">
-                    <!-- Scrollable page content -->
-                    <div class="page-content">
-                        <div class="content-block-title">Apps</div>
-                        <div class="content-block">
-                            <div class="row launchApp">
-                                <div class="col-30">
-                                    <div class="appIcon">
-                                        <span class="preloader preloader-white" style="width:42px; height:42px"></span>
-                                        <img src="/assets/imgs/appIcon.png" style="width: 50px; height: auto;" />
-                                    </div>
-                                </div>
-                                <div class="col-60">
-                                    <h3 style="margin-bottom: 0">DigiPet</h3> <small class="status">(<i>installing</i>)</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        {{template "viewHomeScreen"}}
         </div>
         <!-- View for the digipet -->
         <div class="view tab view-digipet ">

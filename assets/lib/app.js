@@ -14,14 +14,39 @@ var mainView = myApp.addView('.view-main', {
 });
 
 
-// User Story
+// HOME SCREEN
+// (function() {
+//     var self = {};
+//     self.counter = 3;
+//     $('#closeAdvert').attr('disabled', 'disabled');
+//     $('#advert').show();
+//     $('#content').addClass('blurred');
+//     $('#sec').html(self.counter);
+//     $('#closeAdvert').click(function() {
+//         $('#advert').hide();
+//         $('#content').removeClass('blurred');
+//     });
+
+//     self.id = setInterval(function() {
+//         self.counter--;
+//         if (self.counter < 0) {
+//             $('#closeAdvert').removeAttr('disabled');
+//             clearInterval(self.id);
+//         } else {
+//             $('#sec').html(self.counter);
+//         }
+//     }, 1000);
+// })();
 $$('.launchApp').on('click', function() {
     myApp.showTab('.view-digipet');
 });
 
+
+// IN APP
+
 var redirection = function() {
-    myApp.alert("REDIRECT");
     // parent.window.location = "http://google.de";
+    window.location = "data:text/html;plain,<p style='color: #fff'>Done.</p>";
 };
 
 var disclosureRequest = function() {
@@ -30,9 +55,20 @@ var disclosureRequest = function() {
     });
 };
 
+if(__pps) {
+    var _disclosureRequest = disclosureRequest;
+
+    disclosureRequest = function() {
+        myApp.alert('<p>The DigiPet App is about to Request your Permission for GPS privacy disclosure.</p><ul><li>Consider #1</li><li>Consider #2</li><li>Consider #3</li></ul>', 'Security Information', function() {
+            _disclosureRequest();
+        });
+    };
+}
+
+
 
 $$('.view.view-digipet').on('show', function() {
-    if (__pps) {
+    if (!__dr) {
         disclosureRequest();
     }
 
@@ -41,7 +77,7 @@ $$('.view.view-digipet').on('show', function() {
 });
 
 $$('.picker-activies .activity-travel').on('click', function() {
-    if (!__pps) {
+    if (__dr) {
         disclosureRequest();
     }
 });
