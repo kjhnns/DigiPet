@@ -19,6 +19,7 @@ var digiPet = myApp.addView('.view-digipet');
 
 $$('.launchApp').on('click', function () {
     myApp.showTab('.view-digipet');
+    myApp.pickerModal('.picker-activies');
 });
 
 // Now we need to run the code that will be executed only for About page.
@@ -27,5 +28,4 @@ $$('.launchApp').on('click', function () {
 myApp.onPageInit('about', function(page) {
     // Do something here for "about" page
     myApp.alert('Here comes About page');
-    mainView.showToolbar();
-});
+    myApp.pickerModal('.picker-activies');});
