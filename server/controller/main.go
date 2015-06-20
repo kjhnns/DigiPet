@@ -9,7 +9,8 @@ var g *gin.Engine
 
 func App(c *gin.Context) {
 	c.HTML(http.StatusOK, "appRoot.html", gin.H{
-		"title": "x",
+		"pps": true, // Privacy Policy Statement
+		"dr":  true, // Disclosure Request
 	})
 }
 

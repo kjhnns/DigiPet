@@ -23,7 +23,7 @@
     </div>
     <div class="views tabs">
         <!-- Home Screen -->
-        <div class="view tab view-main ">
+        <div class="view tab view-main active">
             <div class="pages">
                 <div data-page="index" class="page">
                     <!-- Scrollable page content -->
@@ -47,12 +47,13 @@
             </div>
         </div>
         <!-- View for the digipet -->
-        <div class="view tab view-digipet active">
+        <div class="view tab view-digipet ">
             {{template "viewDigiPet" .}}
         </div>
     </div>
     <script type="text/javascript" src="/assets/components/framework7/dist/js/framework7.min.js"></script>
     <script type="text/javascript" src="/assets/lib/app.js"></script>
+    {{template "viewDigiPet.controller" .}}
 </body>
 
 </html>

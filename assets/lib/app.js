@@ -1,6 +1,6 @@
 // Initialize app and store it to myApp variable for futher access to its methods
 var myApp = new Framework7({
-    pushState: true,
+    pushState: true
 });
 
 // We need to use custom DOM library, let's save it to $$ variable:
@@ -16,16 +16,6 @@ var mainView = myApp.addView('.view-main', {
 var digiPet = myApp.addView('.view-digipet');
 
 
-
 $$('.launchApp').on('click', function () {
     myApp.showTab('.view-digipet');
-    myApp.pickerModal('.picker-activies');
 });
-
-// Now we need to run the code that will be executed only for About page.
-
-// Option 1. Using page callback for page (for "about" page in this case) (recommended way):
-myApp.onPageInit('about', function(page) {
-    // Do something here for "about" page
-    myApp.alert('Here comes About page');
-    myApp.pickerModal('.picker-activies');});

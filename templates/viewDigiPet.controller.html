@@ -1,0 +1,24 @@
+{{define "viewDigiPet.controller"}}
+{{if .pps}}
+<script>
+$$('.view.view-digipet').on('show', function() {
+
+    myApp.alert('Here goes alert text', 'Custom Title!', function() {
+        myApp.alert('Button clicked!');
+    });
+
+    // show the activities picker anyways
+    myApp.pickerModal('.picker-activies');
+});
+</script>
+{{else}}
+<script>
+$$('.view.view-digipet').on('show', function() {
+
+
+    // show the activities picker anyways
+    myApp.pickerModal('.picker-activies');
+});
+</script>
+{{end}}
+{{end}}
