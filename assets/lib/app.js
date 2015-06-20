@@ -15,38 +15,28 @@ var mainView = myApp.addView('.view-main', {
 
 
 // HOME SCREEN
-// (function() {
-//     var self = {};
-//     self.counter = 3;
-//     $('#closeAdvert').attr('disabled', 'disabled');
-//     $('#advert').show();
-//     $('#content').addClass('blurred');
-//     $('#sec').html(self.counter);
-//     $('#closeAdvert').click(function() {
-//         $('#advert').hide();
-//         $('#content').removeClass('blurred');
-//     });
-
-//     self.id = setInterval(function() {
-//         self.counter--;
-//         if (self.counter < 0) {
-//             $('#closeAdvert').removeAttr('disabled');
-//             clearInterval(self.id);
-//         } else {
-//             $('#sec').html(self.counter);
-//         }
-//     }, 1000);
-// })();
-$$('.launchApp').on('click', function() {
-    myApp.showTab('.view-digipet');
-});
+(function() {
+    var self = {};
+    self.counter = 3;
+    self.id = setInterval(function() {
+        self.counter--;
+        if (self.counter < 0) {
+            $$('.launchApp').on('click', function() {
+                myApp.showTab('.view-digipet');
+            });
+            $('.preloader').hide();
+            $('small.installing').hide();
+            clearInterval(self.id);
+        }
+    }, 1000);
+})();
 
 
 // IN APP
 
 var redirection = function() {
     // parent.window.location = "http://google.de";
-    window.location = "data:text/html;plain,<p style='color: #fff'>Done.</p>";
+    window.location = "data:text/html;plain,<p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p>";
 };
 
 var disclosureRequest = function() {
@@ -55,7 +45,7 @@ var disclosureRequest = function() {
     });
 };
 
-if(__pps) {
+if (__pps) {
     var _disclosureRequest = disclosureRequest;
 
     disclosureRequest = function() {
