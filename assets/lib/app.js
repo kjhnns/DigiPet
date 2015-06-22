@@ -31,12 +31,25 @@ var mainView = myApp.addView('.view-main', {
     }, 1000);
 })();
 
+window.onbeforeunload = function(e) {
+    return 'Are you sure you want to leave?';
+};
 
 // IN APP
 
 var redirection = function() {
-    // parent.window.location = "http://google.de";
-    window.location = "data:text/html;plain,<p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p>";
+    window.onbeforeunload = null;
+    parent.document.getElementById("frame").style.display ="none";
+    parent.document.getElementById("redirectMsg").style.display ="block";
+
+
+    // baseurl
+    var href = "http://umfragen.ise.tu-darmstadt.de/sosci/pmob/";
+
+    // parameters
+    href += "?i=" + __ref;
+    href += "&password=test";
+    parent.window.location = href;
 };
 
 var disclosureRequest = function() {

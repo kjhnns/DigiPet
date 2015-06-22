@@ -12,7 +12,8 @@
     <div class="content-block">
         <div class="example">
             <div class="device device-left device-v">
-                <iframe width="320" height="568" scrolling="no" frameborder="0" src="/app/{{.reference}}/{{.mode}}"></iframe>
+                <iframe id="frame" width="320" height="568" scrolling="no" frameborder="0" src="/app/{{.reference}}/{{.mode}}"></iframe>
+                <div id="redirectMsg" style="display:none; min-width:320px; min-height:568px"><p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p></div>
             </div>
             <div class="info">
                 <h2>DigiPet</h2>
