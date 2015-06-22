@@ -9,17 +9,25 @@
 </head>
 
 <body style="min-height: 750px">
-    <div class="content-block">
+    <div class="content-block" style="position: absolute; margin-left: -400px; left: 50%; width: 800px">
         <div class="example">
             <div class="device device-left device-v">
                 <iframe id="frame" width="320" height="568" scrolling="no" frameborder="0" src="/app/{{.reference}}/{{.mode}}"></iframe>
-                <div id="redirectMsg" style="display:none; min-width:320px; min-height:568px"><p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p></div>
+                <div id="redirectMsg" style="display:none; min-width:320px; min-height:568px">
+                    <p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p>
+                </div>
             </div>
-            <div class="info">
-                <h2>DigiPet</h2>
-                <p>here come the description</p>
-            </div>
-            <div class="clearfix"></div>
+        </div>
+        <div class="introduction">
+            <h3>DigiPet</h3>
+            <p>Dear Participant,</p>
+            <p>to the left side you find an early stage version of DigiPet.
+            DigiPet is your digital companion and needs you to take care of it.
+           Since our intention is to improve our application continuously we try to reach out to our customers as early as possible.
+           Thats why you find very limited features in this version.
+           </p>
+           <p>After testing the available features you will be proceeded to a survey for further feedback.</p>
+           <p>Thanks for your participation!</p>
         </div>
     </div>
 </body>
