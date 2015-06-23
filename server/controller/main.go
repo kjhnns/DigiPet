@@ -39,3 +39,7 @@ func Index(c *gin.Context) {
 		"mode":      mode,
 	})
 }
+
+func Pps(c *gin.Context) {
+	c.HTML(http.StatusOK, "pps.html", gin.H{})
+}

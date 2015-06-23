@@ -16,6 +16,7 @@ func initRouting() {
 
 	g.GET("/:reference/:mode", ctrl.Index)
 	g.GET("/app/:reference/:mode", ctrl.App)
+	g.GET("/pps", ctrl.Pps)
 
 	fmt.Println("} done.")
 }

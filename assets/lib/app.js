@@ -13,6 +13,8 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: true
 });
 
+var _moreButton = false;
+
 
 // HOME SCREEN
 (function() {
@@ -37,10 +39,10 @@ window.onbeforeunload = function(e) {
 
 // IN APP
 
-var redirection = function() {
+var redirection = function(state) {
     window.onbeforeunload = null;
-    parent.document.getElementById("frame").style.display ="none";
-    parent.document.getElementById("redirectMsg").style.display ="block";
+    parent.document.getElementById("frame").style.display = "none";
+    parent.document.getElementById("redirectMsg").style.display = "block";
 
 
     // baseurl
@@ -49,20 +51,32 @@ var redirection = function() {
     // parameters
     href += "?i=" + __ref;
     href += "&password=test";
+    href += "&c=" + (state === true ? '1' : '0');
+    href += "&m=" + (_moreButton === true ? '1' : '0');
+
     parent.window.location = href;
 };
 
 var disclosureRequest = function() {
-    myApp.alert('Are you willing to allow DigiPet to access your GPS Location?', 'Disclosure Request', function() {
-        redirection();
-    });
+    myApp.confirm('Are you willing to allow DigiPet to access your GPS Location?', 'Disclosure Request',
+        function() {
+            redirection(true);
+        },
+        function() {
+            redirection(false);
+        });
 };
+
+function moreInfo() {
+    _moreButton = true;
+    window.open('http://digipet.herokuapp.com/pps','_blank');
+}
 
 if (__pps) {
     var _disclosureRequest = disclosureRequest;
 
     disclosureRequest = function() {
-        myApp.alert('<p>The DigiPet App is about to Request your Permission for GPS privacy disclosure.</p><ul><li>Consider #1</li><li>Consider #2</li><li>Consider #3</li></ul>', 'Security Information', function() {
+        myApp.alert('<p>The DigiPet App is about to request your permission for GPS privacy disclosure.</p><ul style="text-align: left;"><li>Your location information is used to detect other users so that your pets can play together</li><li>Your location information is deleted within 24 hours</li><li>No third party will be granted access to your location information</li></ul><p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p>', 'Security Information', function() {
             _disclosureRequest();
         });
     };
