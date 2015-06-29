@@ -17,3 +17,10 @@
     top: 50%;
     margin-top: -21px;
 }
+
+.swiper-slide {
+  box-sizing: border-box;
+}
+.swiper-container {
+  margin: 0 0;
+}

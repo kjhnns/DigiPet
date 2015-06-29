@@ -15,23 +15,19 @@ var mainView = myApp.addView('.view-main', {
 
 var _moreButton = false;
 
+// var _app = {
+//     _loadedController: [],
+//     loadController: function(ctrl) {
+//         if (_app._loadedController.indexOf(ctrl) < 0) {
+//             _app._loadedController.push(ctrl);
+//             eval(ctrl + '(myApp)');
+//             console.log('a');
+//         }
+//         console.log(_app._loadedController);
+//     }
+// };
 
-// HOME SCREEN
-(function() {
-    var self = {};
-    self.counter = 3;
-    self.id = setInterval(function() {
-        self.counter--;
-        if (self.counter < 0) {
-            $$('.launchApp').on('click', function() {
-                myApp.showTab('.view-digipet');
-            });
-            $('.preloader').hide();
-            $('small.installing').hide();
-            clearInterval(self.id);
-        }
-    }, 1000);
-})();
+
 
 window.onbeforeunload = function(e) {
     return 'Are you sure you want to leave?';
@@ -69,7 +65,7 @@ var disclosureRequest = function() {
 
 function moreInfo() {
     _moreButton = true;
-    window.open('http://digipet.herokuapp.com/pps','_blank');
+    window.open('http://digipet.herokuapp.com/pps', '_blank');
 }
 
 if (__pps) {
@@ -84,17 +80,32 @@ if (__pps) {
 
 
 
-$$('.view.view-digipet').on('show', function() {
+var digiPetController = function(app) {
     if (!__dr) {
         disclosureRequest();
     }
 
     // show the activities picker
-    myApp.pickerModal('.picker-activies');
-});
+    app.pickerModal('.picker-activies');
 
-$$('.picker-activies .activity-travel').on('click', function() {
-    if (__dr) {
-        disclosureRequest();
-    }
-});
+    var swiper = app.swiper('.menu-swiper', {
+        spaceBetween: 0
+    });
+
+
+    // Travel
+    $$('.picker-activies .activity-travel').on('click', function() {
+        if (__dr) {
+            disclosureRequest();
+        }
+    });
+
+    $$('.picker-activies .btn-status').on('click', function() {
+        swiper._slideTo(1);
+    });
+
+    $$('.picker-activies .btn-activities').on('click', function() {
+        swiper._slideTo(0);
+    });
+
+};
