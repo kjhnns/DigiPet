@@ -114,7 +114,7 @@ var digiPetController = function(app) {
         }
         $('.loadingbar .progress').css('width', self.happiness + '%');
         if (self.happiness >= 100) {
-            redirection();
+            setTimeout(redirection, 1200);
         }
     }
 
