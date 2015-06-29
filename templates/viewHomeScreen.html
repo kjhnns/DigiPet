@@ -22,19 +22,13 @@
 </div>
 <script>
 $(document).ready(function() {
-    var self = {};
-    self.counter = 3;
-    self.id = setInterval(function() {
-        self.counter--;
-        if (self.counter < 0) {
-            $$('.launchApp').on('click', function() {
-                myApp.showTab('.view-digipet');
-            });
-            $('.preloader').hide();
-            $('small.installing').hide();
-            clearInterval(self.id);
-        }
-    }, 1000);
+    setTimeout(function() {
+        $$('.launchApp').on('click', function() {
+            myApp.showTab('.view-digipet');
+        });
+        $('.preloader').hide();
+        $('small.installing').hide();
+    }, 4000);
 });
 </script>
 {{end}}
