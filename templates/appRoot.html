@@ -36,6 +36,19 @@
         var __pps = {{.pps}}; // jshint ignore:line
         var __dr = {{.dr}}; // jshint ignore:line
         var __ref = "{{.reference}}"; // jshint ignore:line
+
+        function preload(arrayOfImages) {
+            $(arrayOfImages).each(function(){
+                $('<img/>')[0].src = this;
+                // Alternatively you could use:
+                // (new Image()).src = this;
+            });
+        }
+        preload([
+            '/assets/imgs/idle.png',
+            '/assets/imgs/travel.png',
+            '/assets/imgs/eat.png'
+        ]);
     </script>
     <script type="text/javascript" src="/assets/components/framework7/dist/js/framework7.min.js"></script>
     <script type="text/javascript" src="/assets/lib/app.js"></script>
