@@ -100,6 +100,8 @@ var digiPetController = function(app) {
         self.swiper = app.swiper('.menu-swiper', {
             spaceBetween: 0
         });
+        // init progressbar
+        $('.loadingbar .progress').css('width', self.happiness + '%');
     })();
 
 
