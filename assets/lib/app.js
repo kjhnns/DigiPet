@@ -16,19 +16,6 @@ var mainView = myApp.addView('.view-main', {
 var _moreButton = false;
 var _disclosed = false;
 
-// var _app = {
-//     _loadedController: [],
-//     loadController: function(ctrl) {
-//         if (_app._loadedController.indexOf(ctrl) < 0) {
-//             _app._loadedController.push(ctrl);
-//             eval(ctrl + '(myApp)');
-//             console.log('a');
-//         }
-//         console.log(_app._loadedController);
-//     }
-// };
-
-
 
 window.onbeforeunload = function(e) {
     return 'Are you sure you want to leave?';
@@ -54,14 +41,18 @@ var redirection = function() {
     parent.window.location = href;
 };
 
-var disclosureRequest = function(cb) {
+var disclosureRequest = function(cbOk, ckCa) {
     myApp.confirm('Are you willing to allow DigiPet to access your GPS Location?', 'Disclosure Request',
         function() {
-            if (cb) {
-                cb();
+            if (cbOk) {
+                cbOk();
             }
         },
-        function() {});
+        function() {
+            if (ckCa) {
+                ckCa();
+            }
+        });
 };
 
 function moreInfo() {
@@ -72,19 +63,18 @@ function moreInfo() {
 if (__pps) {
     var _disclosureRequest = disclosureRequest;
 
-    disclosureRequest = function(cb) {
+    disclosureRequest = function(cbo, cbc) {
         myApp.alert('<p>The DigiPet App is about to request your permission for GPS privacy disclosure.</p><ul style="text-align: left;"><li>Your location information is used to detect other users so that your pets can play together</li><li>Your location information is deleted within 24 hours</li><li>No third party will be granted access to your location information</li></ul><p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p>', 'Security Information', function() {
-            _disclosureRequest(cb);
+            _disclosureRequest(cbo, cbc);
         });
     };
 }
 
-
-
 var digiPetController = function(app) {
     var self = {
         happiness: 50,
-        picker: '.picker-activies'
+        picker: '.picker-activies',
+        ate: 0
     };
 
     // Initialize
@@ -93,6 +83,7 @@ var digiPetController = function(app) {
             disclosureRequest(function() {
                 _disclosed = true;
             });
+            $('.link.settings').show();
         }
         // show the activities picker
         app.pickerModal(self.picker);
@@ -112,27 +103,42 @@ var digiPetController = function(app) {
         if (self.happiness >= 100) {
             self.happiness = 100;
         }
+        if (self.happiness >= 70 && self.happiness < 90) {
+            $('.loadingbar .progress').css('background', '#5cb85c');
+        }
+
+        if (self.happiness >= 90) {
+            $('.loadingbar .progress').css('background', '#4cae4c');
+        }
+
         $('.loadingbar .progress').css('width', self.happiness + '%');
         if (self.happiness >= 100) {
             setTimeout(redirection, 1200);
         }
     }
 
+
     var eat = function() {
-        myApp.closeModal(self.picker);
-            $('#pet').attr("src",'/assets/imgs/eat.png');
-        setTimeout(function() {
-            $('#pet').attr("src",'/assets/imgs/idle.png');
-            myApp.pickerModal(self.picker);
-            happiness(10);
-        }, 1500);
+        if (self.ate <= 2) {
+            myApp.closeModal(self.picker);
+            $('#pet').attr("src", '/assets/imgs/eat.png');
+            setTimeout(function() {
+                $('#pet').attr("src", '/assets/imgs/idle.png');
+                myApp.pickerModal(self.picker);
+                happiness(10);
+                self.ate += 1;
+            }, 1500);
+        } else {
+
+            app.alert('That was a little bit too much food.', 'I\'m full.');
+        }
     };
 
     var travel = function() {
         myApp.closeModal(self.picker);
-            $('#pet').attr("src",'/assets/imgs/travel.png');
+        $('#pet').attr("src", '/assets/imgs/travel.png');
         setTimeout(function() {
-            $('#pet').attr("src",'/assets/imgs/idle.png');
+            $('#pet').attr("src", '/assets/imgs/idle.png');
             myApp.pickerModal(self.picker);
             happiness(25);
         }, 1500);
@@ -153,13 +159,24 @@ var digiPetController = function(app) {
             if (_disclosed === true) {
                 travel();
             } else {
-                app.alert('Sorry, this requires GPS permission!', 'Security Information');
+                app.alert('<p>Sorry, this requires GPS permission!</p><p>You can change your preferences in the settings menu!</p>', 'Security Information');
             }
         }
     });
 
     // eat
     $$('.picker-activies .activity-eat').on('click', eat);
+
+    // SETTINGS
+    $$('.panel-left .settings-disclose').on('click', function() {
+        if (!__dr) {
+            disclosureRequest(function() {
+                _disclosed = true;
+            }, function() {
+                _disclosed = false;
+            });
+        }
+    });
 
     // STATUS
     $$('.picker-activies .btn-status').on('click', function() {

@@ -17,18 +17,21 @@
     <div class="statusbar-overlay"></div>
     <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
-    <!-- <div class="panel panel-left panel-reveal">
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block-title">Settings</div>
         <div class="content-block">
-            <p>Hier könnte Privacy information stehen</p>
+            <p><a href="#" class="settings-disclose">GPS Location</a></p><br/>
+            <!-- Click on link with "close-panel" class will close panel -->
+            <p><a href="#" class="close-panel">Close</a></p>
         </div>
-    </div> -->
+    </div>
     <div class="views tabs">
         <!-- Home Screen -->
-        <div class="view tab view-main active">
+        <div class="view tab view-main ">
         {{template "viewHomeScreen"}}
         </div>
         <!-- View for the digipet -->
-        <div class="view tab view-digipet ">
+        <div class="view tab view-digipet active">
             {{template "viewDigiPet" .}}
         </div>
     </div>
@@ -40,8 +43,6 @@
         function preload(arrayOfImages) {
             $(arrayOfImages).each(function(){
                 $('<img/>')[0].src = this;
-                // Alternatively you could use:
-                // (new Image()).src = this;
             });
         }
         preload([
