@@ -18,6 +18,19 @@
         </div>
     </div>
 </div>
+<div class="popup popup-pps">
+    <div class="content-block-title">Security Information</div>
+    <div class="content-block">
+        <p>The DigiPet App is about to request your permission for GPS privacy disclosure.</p>
+        <ul style="text-align: left;">
+            <li>Your location information is used to detect other users so that your pets can play together</li>
+            <li>Your location information is deleted within 24 hours</li>
+            <li>No third party will be granted access to your location information</li>
+        </ul>
+        <p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p><br/><br/>
+        <p><a href="#" class="button button-big button-round btn-okay">Okay</a></p>
+    </div>
+</div>
 <div class="picker-modal picker-activies">
     <div class="toolbar">
         <div class="toolbar-inner">
@@ -35,13 +48,16 @@
                                 Happiness
                             </div>
                             <div class="col-75">
-                                <div class="loadingbar"><div class="progress"></div></div>
+                                <div class="loadingbar">
+                                    <div class="progress"></div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-20">
                             </div>
-                            <div class="col-80"><br/>
+                            <div class="col-80">
+                                <br/>
                                 <b>You need to make DigiPet happy!</b>
                             </div>
                         </div>
@@ -80,7 +96,7 @@
 </div>
 <script>
 $(document).ready(function() {
-        digiPetController(myApp);
+    digiPetController(myApp);
     $$('.view.view-digipet').on('show', function() {
         digiPetController(myApp);
     });

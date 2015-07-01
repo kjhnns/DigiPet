@@ -60,15 +60,27 @@ function moreInfo() {
     window.open('http://digipet.herokuapp.com/pps', '_blank');
 }
 
-if (__pps) {
-    var _disclosureRequest = disclosureRequest;
-
-    disclosureRequest = function(cbo, cbc) {
-        myApp.alert('<p>The DigiPet App is about to request your permission for GPS privacy disclosure.</p><ul style="text-align: left;"><li>Your location information is used to detect other users so that your pets can play together</li><li>Your location information is deleted within 24 hours</li><li>No third party will be granted access to your location information</li></ul><p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p>', 'Security Information', function() {
-            _disclosureRequest(cbo, cbc);
-        });
-    };
-}
+(function() {
+    if (__pps) {
+        var eventListener = false;
+        var _disclosureRequest = disclosureRequest;
+        disclosureRequest = function(cbo, cbc) {
+            myApp.closePanel();
+            myApp.closeModal('.picker-activies');
+            myApp.popup('.popup-pps');
+            $('.popup-overlay.modal-overlay-visible').hide();
+            if (eventListener === false) {
+                $$('.popup .btn-okay').on('click', function() {
+                    $('.popup-overlay.modal-overlay-visible').show();
+                    myApp.pickerModal('.picker-activies');
+                    myApp.closeModal('.popup-pps');
+                    _disclosureRequest(cbo, cbc);
+                });
+                eventListener=true;
+            }
+        };
+    }
+})();
 
 var digiPetController = function(app) {
     var self = {

@@ -48,3 +48,8 @@
 .pet .plus {
     color: #4cae4c;
 }
+
+/*.modal-overlay.modal-overlay-visible, .popup-overlay.modal-overlay-visible, .preloader-indicator-overlay.modal-overlay-visible {
+    display: none !important;
+    visibility: none !important;
+}*/
