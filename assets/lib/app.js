@@ -74,7 +74,7 @@ var digiPetController = function(app) {
     var self = {
         happiness: 50,
         picker: '.picker-activies',
-        ate: 0
+        activityTime: 1500
     };
 
     // Initialize
@@ -111,6 +111,11 @@ var digiPetController = function(app) {
             $('.loadingbar .progress').css('background', '#4cae4c');
         }
 
+        $('.pet .plus').html('+' + plus + '%');
+        setTimeout(function() {
+            $('.pet .plus').html('');
+        }, self.activityTime);
+
         $('.loadingbar .progress').css('width', self.happiness + '%');
         if (self.happiness >= 100) {
             setTimeout(redirection, 1200);
@@ -119,29 +124,23 @@ var digiPetController = function(app) {
 
 
     var eat = function() {
-        if (self.ate <= 2) {
-            myApp.closeModal(self.picker);
-            $('#pet').attr("src", '/assets/imgs/eat.png');
-            setTimeout(function() {
-                $('#pet').attr("src", '/assets/imgs/idle.png');
-                myApp.pickerModal(self.picker);
-                happiness(10);
-                self.ate += 1;
-            }, 1500);
-        } else {
-
-            app.alert('That was a little bit too much food.', 'I\'m full.');
-        }
+        myApp.closeModal(self.picker);
+        $('#pet').attr("src", '/assets/imgs/eat.png');
+        happiness(10);
+        setTimeout(function() {
+            $('#pet').attr("src", '/assets/imgs/idle.png');
+            myApp.pickerModal(self.picker);
+        }, self.activityTime);
     };
 
     var travel = function() {
         myApp.closeModal(self.picker);
         $('#pet').attr("src", '/assets/imgs/travel.png');
+        happiness(25);
         setTimeout(function() {
             $('#pet').attr("src", '/assets/imgs/idle.png');
             myApp.pickerModal(self.picker);
-            happiness(25);
-        }, 1500);
+        }, self.activityTime);
     };
 
     // Travel

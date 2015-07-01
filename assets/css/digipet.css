@@ -39,3 +39,12 @@
     height: 2px;
 }
 
+.pet > .showplus {
+    position: absolute;
+    right: 20px;
+    top: 30px;
+}
+
+.pet .plus {
+    color: #4cae4c;
+}
