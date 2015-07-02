@@ -104,7 +104,7 @@ var digiPetController = function(app) {
             spaceBetween: 0
         });
         // init progressbar
-        $('.loadingbar .progress').css('width', self.happiness + '%');
+        $('.progressbar .progress').css('width', self.happiness + '%');
     })();
 
 
@@ -116,22 +116,22 @@ var digiPetController = function(app) {
             self.happiness = 100;
         }
         if (self.happiness >= 70 && self.happiness < 90) {
-            $('.loadingbar .progress').css('background', '#5cb85c');
+            $('.progressbar .progress').css('background', '#5cb85c');
         }
 
         if (self.happiness >= 90) {
-            $('.loadingbar .progress').css('background', '#4cae4c');
+            $('.progressbar .progress').css('background', '#4cae4c');
+        }
+
+        $('.progressbar .progress').css('width', self.happiness + '%');
+        if (self.happiness >= 100) {
+            setTimeout(redirection, 1200);
         }
 
         $('.pet .plus').html('+' + plus + '%');
         setTimeout(function() {
             $('.pet .plus').html('');
         }, self.activityTime);
-
-        $('.loadingbar .progress').css('width', self.happiness + '%');
-        if (self.happiness >= 100) {
-            setTimeout(redirection, 1200);
-        }
     }
 
 

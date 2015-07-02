@@ -26,14 +26,35 @@
     margin: 0 0;
 }
 
-.loadingbar {
+.progressbar {
     width: 100%;
     background: #eee;
     min-height: 2px;
     margin-top: 7px;
 }
 
-.loadingbar .progress {
+.progressscale {
+    width: 100%;
+}
+
+.progressscale .scale {
+    float: left;
+    width: 1px;
+    height: 5px;
+    background: #000;
+    margin-left: -3px;
+}
+
+.progressscale .scale.max {
+    margin-left:49%;
+}
+
+.progressscale .scale.mid {
+    margin-left:50%;
+}
+
+
+.progressbar .progress {
     width: 50%;
     background: #f0ad4e;
     height: 2px;
@@ -48,7 +69,6 @@
 .pet .plus {
     color: #4cae4c;
 }
-
 /*.modal-overlay.modal-overlay-visible, .popup-overlay.modal-overlay-visible, .preloader-indicator-overlay.modal-overlay-visible {
     display: none !important;
     visibility: none !important;
