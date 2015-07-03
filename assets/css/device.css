@@ -8,7 +8,7 @@
     border-radius: 55px;
 }
 
-.example .device:after {
+.example .homebutton:after {
     content: '';
     position: absolute;
     width: 42px;

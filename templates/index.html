@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>DigiPet</title>
+    <script type="text/javascript" src="/assets/components/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" href="/assets/components/framework7/dist/css/framework7.min.css">
     <link rel="stylesheet" href="/assets/css/device.css">
 </head>
@@ -16,6 +17,7 @@
                 <div id="redirectMsg" style="display:none; min-width:320px; min-height:568px">
                     <p style='color: #fff; font-family: arial;font-size: 12px;'>redirecting to survey ...</p>
                 </div>
+            <div class="homebutton" style="cursor: pointer;"></div>
             </div>
         </div>
         <div class="introduction">
@@ -28,5 +30,13 @@
         </div>
     </div>
 </body>
+<script>
+$("#frame").load(function() {
+    $('.homebutton').click(function(){
+        $("#frame")[0].contentWindow.myApp.showTab('.view-main');
+    });
+});
+
+</script>
 
 </html>
