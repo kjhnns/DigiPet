@@ -7,11 +7,13 @@ var myApp = new Framework7({
 var $$ = Dom7;
 
 // Adding views
-var digiPet = myApp.addView('.view-digipet');
+var digiPetView = myApp.addView('.view-digipet');
+var settingsView = myApp.addView('.view-settings');
 var mainView = myApp.addView('.view-main', {
     // Because we want to use dynamic navbar, we need to enable it for this view:
     dynamicNavbar: true
 });
+
 
 var _moreButton = false;
 var _disclosed = false;
@@ -95,7 +97,6 @@ var digiPetController = function(app) {
             disclosureRequest(function() {
                 _disclosed = true;
             });
-            $('.link.settings').show();
         }
         // show the activities picker
         app.pickerModal(self.picker);
@@ -178,16 +179,6 @@ var digiPetController = function(app) {
     // eat
     $$('.picker-activies .activity-eat').on('click', eat);
 
-    // SETTINGS
-    $$('.panel-left .settings-disclose').on('click', function() {
-        if (!__dr) {
-            disclosureRequest(function() {
-                _disclosed = true;
-            }, function() {
-                _disclosed = false;
-            });
-        }
-    });
 
     // STATUS
     $$('.picker-activies .btn-status').on('click', function() {

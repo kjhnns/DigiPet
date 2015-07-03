@@ -5,15 +5,25 @@
         <div class="page-content">
             <div class="content-block-title">Apps</div>
             <div class="content-block">
-                <div class="row launchApp" style="cursor: pointer">
+                <div class="row launch-digipet" style="cursor: pointer">
                     <div class="col-30">
-                        <div class="appIcon">
+                        <div class="appIcon blue">
                             <span class="preloader preloader-white" style="width:42px; height:42px"></span>
                             <img src="/assets/imgs/appIcon.png" style="width: 50px; height: auto;" />
                         </div>
                     </div>
                     <div class="col-60">
                         <h3 style="margin-bottom: 0">DigiPet</h3> <small class="installing">(<i>installing</i>)</small>
+                    </div>
+                </div>
+                <div class="row launch-settings" style="cursor: pointer">
+                    <div class="col-30">
+                        <div class="appIcon grey">
+                            <img src="/assets/imgs/settings.png" style="width: 50px; height: auto;" />
+                        </div>
+                    </div>
+                    <div class="col-60">
+                        <h3 style="margin-bottom: 0">Settings</h3></small>
                     </div>
                 </div>
             </div>
@@ -23,12 +33,16 @@
 <script>
 $(document).ready(function() {
     setTimeout(function() {
-        $$('.launchApp').on('click', function() {
+        $$('.launch-digipet').on('click', function() {
             myApp.showTab('.view-digipet');
         });
         $('.preloader').hide();
         $('small.installing').hide();
     }, 4000);
+
+    $$('.launch-settings').on('click', function() {
+        myApp.showTab('.view-settings');
+    });
 });
 </script>
 {{end}}
