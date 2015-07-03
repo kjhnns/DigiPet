@@ -7,17 +7,34 @@ var myApp = new Framework7({
 var $$ = Dom7;
 
 // Adding views
-var digiPetView = myApp.addView('.view-digipet');
-var settingsView = myApp.addView('.view-settings');
+var digiPetView = myApp.addView('.view-digipet', {
+    // Because we want to use dynamic navbar, we need to enable it for this view:
+    dynamicNavbar: true,
+    // Enable Dom Cache so we can use all inline pages
+    domCache: true
+});
+var settingsView = myApp.addView('.view-settings', {
+    // Because we want to use dynamic navbar, we need to enable it for this view:
+    dynamicNavbar: true,
+    // Enable Dom Cache so we can use all inline pages
+    domCache: true
+});
 var mainView = myApp.addView('.view-main', {
     // Because we want to use dynamic navbar, we need to enable it for this view:
-    dynamicNavbar: true
+    dynamicNavbar: true,
+    // Enable Dom Cache so we can use all inline pages
+    domCache: true
 });
 
 
 var _moreButton = false;
 var _disclosed = false;
-
+var _digiPetState = {
+    happiness: 50,
+    picker: '.picker-activies',
+    activityTime: 1500,
+    loaded: false
+};
 
 window.onbeforeunload = function(e) {
     return 'Are you sure you want to leave?';
@@ -57,6 +74,22 @@ var disclosureRequest = function(cbOk, ckCa) {
         });
 };
 
+
+// SETTINGS
+$$('.digipet-settings .settings-disclose').on('click', function() {
+    if (!__dr) {
+        disclosureRequest(function() {
+            _disclosed = true;
+        }, function() {
+            _disclosed = false;
+        });
+    }
+});
+
+$$('.homelink').on('click', function() {
+    myApp.showTab('.view-main');
+});
+
 function moreInfo() {
     _moreButton = true;
     window.open('http://digipet.herokuapp.com/pps', '_blank');
@@ -78,116 +111,125 @@ function moreInfo() {
                     myApp.closeModal('.popup-pps');
                     _disclosureRequest(cbo, cbc);
                 });
-                eventListener=true;
+                eventListener = true;
             }
         };
     }
 })();
 
 var digiPetController = function(app) {
-    var self = {
-        happiness: 50,
-        picker: '.picker-activies',
-        activityTime: 1500
-    };
-
-    // Initialize
-    (function() {
-        if (!__dr) {
-            disclosureRequest(function() {
-                _disclosed = true;
-            });
-        }
-        // show the activities picker
-        app.pickerModal(self.picker);
-        // init swiper
-        self.swiper = app.swiper('.menu-swiper', {
-            spaceBetween: 0
-        });
-        // init progressbar
-        $('.progressbar .progress').css('width', self.happiness + '%');
-    })();
-
 
     // update happiness
     function happiness(plus) {
-        self.happiness += plus;
-        self.swiper._slideTo(0);
-        if (self.happiness >= 100) {
-            self.happiness = 100;
+        _digiPetState.happiness += plus;
+        _digiPetState.swiper._slideTo(0);
+        if (_digiPetState.happiness >= 100) {
+            _digiPetState.happiness = 100;
         }
-        if (self.happiness >= 70 && self.happiness < 90) {
+        if (_digiPetState.happiness >= 70 && _digiPetState.happiness < 90) {
             $('.progressbar .progress').css('background', '#5cb85c');
         }
 
-        if (self.happiness >= 90) {
+        if (_digiPetState.happiness >= 90) {
             $('.progressbar .progress').css('background', '#4cae4c');
         }
 
-        $('.progressbar .progress').css('width', self.happiness + '%');
-        if (self.happiness >= 100) {
+        $('.progressbar .progress').css('width', _digiPetState.happiness + '%');
+        if (_digiPetState.happiness >= 100) {
             setTimeout(redirection, 1200);
         }
 
         $('.pet .plus').html('+' + plus + '%');
+        $('#happiness').html(_digiPetState.happiness);
         setTimeout(function() {
             $('.pet .plus').html('');
-        }, self.activityTime);
+        }, _digiPetState.activityTime);
     }
 
 
     var eat = function() {
-        myApp.closeModal(self.picker);
+        myApp.closeModal(_digiPetState.picker);
         $('#pet').attr("src", '/assets/imgs/eat.png');
         happiness(10);
         setTimeout(function() {
             $('#pet').attr("src", '/assets/imgs/idle.png');
-            myApp.pickerModal(self.picker);
-        }, self.activityTime);
+            myApp.pickerModal(_digiPetState.picker);
+        }, _digiPetState.activityTime);
     };
 
     var travel = function() {
-        myApp.closeModal(self.picker);
+        myApp.closeModal(_digiPetState.picker);
         $('#pet').attr("src", '/assets/imgs/travel.png');
         happiness(25);
         setTimeout(function() {
             $('#pet').attr("src", '/assets/imgs/idle.png');
-            myApp.pickerModal(self.picker);
-        }, self.activityTime);
+            myApp.pickerModal(_digiPetState.picker);
+        }, _digiPetState.activityTime);
     };
 
-    // Travel
-    $$('.picker-activies .activity-travel').on('click', function() {
-        if (__dr) {
-            if (_disclosed === false) {
+    var registerBindings = function() {
+        // Travel
+        $$('.picker-activies .activity-travel').on('click', function() {
+            if (__dr) {
+                if (_disclosed === false) {
+                    disclosureRequest(function() {
+                        _disclosed = true;
+                        travel();
+                    });
+                } else {
+                    travel();
+                }
+            } else {
+                if (_disclosed === true) {
+                    travel();
+                } else {
+                    app.alert('<p>Sorry, this requires GPS permission!</p><p>You can change your preferences in the settings menu!</p>', 'Security Information');
+                }
+            }
+        });
+
+        // eat
+        $$('.picker-activies .activity-eat').on('click', eat);
+
+
+
+        // STATUS
+        $$('.picker-activies .btn-status').on('click', function() {
+            _digiPetState.swiper._slideTo(0);
+        });
+
+        // ACTIVITIES
+        $$('.picker-activies .btn-activities').on('click', function() {
+            _digiPetState.swiper._slideTo(1);
+        });
+    };
+
+
+
+    // Initialize
+    (function() {
+        if (_digiPetState.loaded === false) {
+            if (!__dr) {
                 disclosureRequest(function() {
                     _disclosed = true;
-                    travel();
+                }, function() {
+                    _disclosed = false;
                 });
-            } else {
-                travel();
             }
-        } else {
-            if (_disclosed === true) {
-                travel();
-            } else {
-                app.alert('<p>Sorry, this requires GPS permission!</p><p>You can change your preferences in the settings menu!</p>', 'Security Information');
-            }
+            // show the activities picker
+            app.pickerModal(_digiPetState.picker);
+            // init swiper
+            _digiPetState.swiper = app.swiper('.menu-swiper', {
+                spaceBetween: 0
+            });
+            // init progressbar
+            $('.progressbar .progress').css('width', _digiPetState.happiness + '%');
+            $('#happiness').html(_digiPetState.happiness);
+
+            registerBindings();
+
+            _digiPetState.loaded = true;
         }
-    });
-
-    // eat
-    $$('.picker-activies .activity-eat').on('click', eat);
-
-
-    // STATUS
-    $$('.picker-activies .btn-status').on('click', function() {
-        self.swiper._slideTo(0);
-    });
-
-    // ACTIVITIES
-    $$('.picker-activies .btn-activities').on('click', function() {
-        self.swiper._slideTo(1);
-    });
+    })();
 
 };

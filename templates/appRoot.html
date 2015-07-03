@@ -16,18 +16,9 @@
 <body>
     <div class="statusbar-overlay"></div>
     <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
-        <div class="content-block-title">Settings</div>
-        <div class="content-block">
-            <p><a href="#" class="settings-disclose">GPS Location</a></p><br/>
-            <!-- Click on link with "close-panel" class will close panel -->
-            <p><a href="#" class="close-panel">Close</a></p>
-        </div>
-    </div>
     <div class="views tabs">
         <!-- Home Screen -->
-        <div class="view tab view-main ">
+        <div class="view tab view-main active">
         {{template "viewHomeScreen"}}
         </div>
         <!-- View for the digipet -->
@@ -35,7 +26,7 @@
             {{template "viewDigiPet" .}}
         </div>
         <!-- View for the settings -->
-        <div class="view tab view-settings active">
+        <div class="view tab view-settings ">
             {{template "viewSettings" .}}
         </div>
     </div>

@@ -1,15 +1,43 @@
 {{define "viewSettings"}}
-<div class="pages">
-
-        <div class="page" data-page="digipet">
-          <div class="page-content">
-            ... page content goes here ...
-          </div>
+<div class="navbar">
+    <div class="navbar-inner">
+        <!-- Navbar inner for Index page-->
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Settings</div>
+            <div class="right">
+                <a href="#" class="homelink link"> <span>Home</span></a>
+            </div>
+        <!-- Navbar inner for About page-->
+        <div data-page="digipet" class="navbar-inner cached">
+            <div class="left sliding">
+                <a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a>
+            </div>
+            <div class="center sliding">DigiPet</div>
+            <div class="right">
+                <a href="#" class="homelink link"> <span>Home</span></a>
+            </div>
         </div>
+    </div>
+</div>
+
+<div class="popup popup-pps">
+    <div class="content-block-title">Security Information</div>
+    <div class="content-block">
+        <p>The DigiPet App is about to request your permission for GPS privacy disclosure.</p>
+        <ul style="text-align: left;">
+            <li>Your location information is used to detect other users so that your pets can play together</li>
+            <li>Your location information is deleted within 24 hours</li>
+            <li>No third party will be granted access to your location information</li>
+        </ul>
+        <p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p><br/><br/>
+        <p><a href="#" class="button button-big button-round btn-okay">Okay</a></p>
+    </div>
+</div>
+<div class="pages navbar-through">
     <div data-page="index" class="page">
         <!-- Scrollable page content -->
         <div class="page-content">
-            <div class="content-block-title">Settings</div>
+            <div class="content-block-title">General</div>
             <div class="list-block">
                 <ul>
                     <li class="item-content">
@@ -44,7 +72,7 @@
                     <li class="item-content">
                         <div class="item-media"><img src="/assets/imgs/appIcon.png" style="width: 20px; height: auto;" /></div>
                         <div class="item-inner">
-                            <div class="item-title"><a href="#digipet">Digipet</a></div>
+                            <div class="item-title"><a href="#digipet">DigiPet</a></div>
                         </div>
                     </li>
                 </ul>
@@ -52,7 +80,20 @@
             </div>
         </div>
     </div>
-
-
+    <div class="page cached digipet-settings" data-page="digipet">
+        <div class="page-content">
+            <div class="content-block-title">DigiPet - Settings</div>
+            <div class="list-block">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-media"><i class="icon icon-form-password"></i></div>
+                        <div class="item-inner">
+                            <div class="item-title"><a href="#" class="settings-disclose">GPS Location</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 {{end}}
