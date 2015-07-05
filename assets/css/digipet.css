@@ -8,6 +8,10 @@
     position: relative;
 }
 
+.gps {
+    display: none;
+}
+
 .appIcon.small {
 
 }

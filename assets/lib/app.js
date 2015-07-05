@@ -157,13 +157,55 @@ var digiPetController = function(app) {
         }, _digiPetState.activityTime);
     };
 
+    var playUI = {
+        nogps: function() {
+            $('.digipet-play .gps').hide();
+            $('.digipet-play .nogps').show();
+            $('.play-users').hide();
+            $('.play-load').hide();
+        },
+
+        gps: function() {
+            $('.digipet-play .gps').show();
+            $('.digipet-play .nogps').hide();
+            $('.play-users').hide();
+            $('.play-load').show();
+            playUI.useGPS();
+        },
+
+        useGPS: function() {
+            setTimeout(function() {
+                $('.play-load').hide();
+                $('.play-users').show();
+            }, 3000);
+        }
+    };
+
     var playSearch = function() {
         myApp.closeModal(_digiPetState.picker);
         digiPetView.router.loadPage('#play');
-        setTimeout(function() {
-            $('.play-load').hide();
-            $('.play-users').show();
-        }, 3000);
+
+
+        if (__dr) {
+            if (_disclosed === false) {
+                disclosureRequest(function() {
+                    _disclosed = true;
+                    playUI.gps();
+                }, function() {
+                    _disclosed = false;
+                    playUI.nogps();
+                });
+            } else {
+                playUI.gps();
+            }
+        } else {
+            if (_disclosed === true) {
+                playUI.gps();
+            } else {
+                playUI.nogps();
+            }
+        }
+
     };
 
     var play = function(page) {
@@ -180,30 +222,27 @@ var digiPetController = function(app) {
     var registerBindings = function() {
 
         // Play
-        $$('.picker-activies .activity-play').on('click', function() {
-            if (__dr) {
-                if (_disclosed === false) {
-                    disclosureRequest(function() {
-                        _disclosed = true;
-                        playSearch();
-                    });
-                } else {
-                    playSearch();
-                }
-            } else {
-                if (_disclosed === true) {
-                    playSearch();
-                } else {
-                    app.alert('<p>Sorry, this requires GPS permission!</p><p>You can change your preferences in the settings menu!</p>', 'Security Information');
-                }
-            }
-        });
+        $$('.picker-activies .activity-play').on('click', playSearch);
 
 
         // eat
         $$('.play-users .activity-play').on('click', play);
 
-
+        $$('.link.gpsService').on('click', function() {
+            if (__dr) {
+                disclosureRequest(function() {
+                    _disclosed = true;
+                    playUI.gps();
+                }, function() {
+                    _disclosed = false;
+                    playUI.nogps();
+                });
+            } else {
+                myApp.pickerModal('.picker-activies');
+                digiPetView.router.loadPage('#index');
+                myApp.showTab('.view-settings');
+            }
+        });
 
         // eat
         $$('.picker-activies .activity-eat').on('click', eat);
