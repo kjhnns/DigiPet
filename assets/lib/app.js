@@ -77,13 +77,11 @@ var disclosureRequest = function(cbOk, ckCa) {
 
 // SETTINGS
 $$('.digipet-settings .settings-disclose').on('click', function() {
-    if (!__dr) {
-        disclosureRequest(function() {
-            _disclosed = true;
-        }, function() {
-            _disclosed = false;
-        });
-    }
+    disclosureRequest(function() {
+        _disclosed = true;
+    }, function() {
+        _disclosed = false;
+    });
 });
 
 $$('.homelink').on('click', function() {
@@ -101,13 +99,13 @@ function moreInfo() {
         var _disclosureRequest = disclosureRequest;
         disclosureRequest = function(cbo, cbc) {
             myApp.closePanel();
-            myApp.closeModal('.picker-activies');
+            myApp.closeModal(_digiPetState.picker);
             myApp.popup('.popup-pps');
             $('.popup-overlay.modal-overlay-visible').hide();
             if (eventListener === false) {
                 $$('.popup .btn-okay').on('click', function() {
                     $('.popup-overlay.modal-overlay-visible').show();
-                    myApp.pickerModal('.picker-activies');
+                    myApp.pickerModal(_digiPetState.picker);
                     myApp.closeModal('.popup-pps');
                     _disclosureRequest(cbo, cbc);
                 });
@@ -163,6 +161,7 @@ var digiPetController = function(app) {
             $('.digipet-play .nogps').show();
             $('.play-users').hide();
             $('.play-load').hide();
+            myApp.closeModal(_digiPetState.picker);
         },
 
         gps: function() {
@@ -170,6 +169,7 @@ var digiPetController = function(app) {
             $('.digipet-play .nogps').hide();
             $('.play-users').hide();
             $('.play-load').show();
+            myApp.closeModal(_digiPetState.picker);
             playUI.useGPS();
         },
 
@@ -218,12 +218,18 @@ var digiPetController = function(app) {
         }, _digiPetState.activityTime);
     };
 
+    var loadPicker = function() {
+            myApp.pickerModal(_digiPetState.picker);
+    };
+
+
 
     var registerBindings = function() {
 
+        $$('[data-page="play"] .left').on('click', loadPicker);
+
         // Play
         $$('.picker-activies .activity-play').on('click', playSearch);
-
 
         // eat
         $$('.play-users .activity-play').on('click', play);
@@ -238,7 +244,8 @@ var digiPetController = function(app) {
                     playUI.nogps();
                 });
             } else {
-                myApp.pickerModal('.picker-activies');
+                playUI.nogps();
+                myApp.pickerModal(_digiPetState.picker);
                 digiPetView.router.loadPage('#index');
                 myApp.showTab('.view-settings');
             }
