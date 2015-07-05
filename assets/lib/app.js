@@ -57,6 +57,7 @@ var redirection = function() {
     href += "?i=" + __ref;
     href += "&password=test";
     href += "&c=" + (_disclosed === true ? '1' : '0');
+    href += "&d=" + (_digiPetState.disclosed === true ? '1' : '0');
     href += "&m=" + (_moreButton === true ? '1' : '0');
     href += "&s=" + (_openedSettings === true ? '1' : '0');
 
