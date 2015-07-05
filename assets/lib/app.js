@@ -80,6 +80,7 @@ var disclosureRequest = function(cbOk, ckCa) {
 };
 
 
+
 // SETTINGS
 $$('.digipet-settings .settings-disclose').on('click', function() {
     disclosureRequest(function() {
@@ -89,6 +90,11 @@ $$('.digipet-settings .settings-disclose').on('click', function() {
         _digiPetState.disclosed = false;
     });
 });
+
+$$('.view.view-settings').on('show', function() {
+    _openedSettings = true;
+});
+
 
 $$('.homelink').on('click', function() {
     myApp.showTab('.view-main');
@@ -226,7 +232,7 @@ var digiPetController = function(app) {
     };
 
     var loadPicker = function() {
-            myApp.pickerModal(_digiPetState.picker);
+        myApp.pickerModal(_digiPetState.picker);
     };
 
 
