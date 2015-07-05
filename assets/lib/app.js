@@ -28,12 +28,14 @@ var mainView = myApp.addView('.view-main', {
 
 
 var _moreButton = false;
+var _openedSettings = false;
 var _disclosed = false;
 var _digiPetState = {
     happiness: 50,
     picker: '.picker-activies',
     activityTime: 1500,
-    loaded: false
+    loaded: false,
+    disclosed: false
 };
 
 window.onbeforeunload = function(e) {
@@ -56,6 +58,8 @@ var redirection = function() {
     href += "&password=test";
     href += "&c=" + (_disclosed === true ? '1' : '0');
     href += "&m=" + (_moreButton === true ? '1' : '0');
+    href += "&s=" + (_openedSettings === true ? '1' : '0');
+
 
     parent.window.location = href;
 };
@@ -78,9 +82,10 @@ var disclosureRequest = function(cbOk, ckCa) {
 // SETTINGS
 $$('.digipet-settings .settings-disclose').on('click', function() {
     disclosureRequest(function() {
+        _digiPetState.disclosed = true;
         _disclosed = true;
     }, function() {
-        _disclosed = false;
+        _digiPetState.disclosed = false;
     });
 });
 
@@ -187,19 +192,20 @@ var digiPetController = function(app) {
 
 
         if (__dr) {
-            if (_disclosed === false) {
+            if (_digiPetState.disclosed === false) {
                 disclosureRequest(function() {
+                    _digiPetState.disclosed = true;
                     _disclosed = true;
                     playUI.gps();
                 }, function() {
-                    _disclosed = false;
+                    _digiPetState.disclosed = false;
                     playUI.nogps();
                 });
             } else {
                 playUI.gps();
             }
         } else {
-            if (_disclosed === true) {
+            if (_digiPetState.disclosed === true) {
                 playUI.gps();
             } else {
                 playUI.nogps();
@@ -237,10 +243,11 @@ var digiPetController = function(app) {
         $$('.link.gpsService').on('click', function() {
             if (__dr) {
                 disclosureRequest(function() {
+                    _digiPetState.disclosed = true;
                     _disclosed = true;
                     playUI.gps();
                 }, function() {
-                    _disclosed = false;
+                    _digiPetState.disclosed = false;
                     playUI.nogps();
                 });
             } else {
@@ -274,9 +281,10 @@ var digiPetController = function(app) {
         if (_digiPetState.loaded === false) {
             if (!__dr) {
                 disclosureRequest(function() {
+                    _digiPetState.disclosed = true;
                     _disclosed = true;
                 }, function() {
-                    _disclosed = false;
+                    _digiPetState.disclosed = false;
                 });
             }
             // show the activities picker
