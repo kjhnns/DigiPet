@@ -157,9 +157,18 @@ var digiPetController = function(app) {
         }, _digiPetState.activityTime);
     };
 
-    var travel = function() {
+    var playSearch = function() {
         myApp.closeModal(_digiPetState.picker);
-        $('#pet').attr("src", '/assets/imgs/travel.png');
+        digiPetView.router.loadPage('#play');
+        setTimeout(function() {
+            $('.play-load').hide();
+            $('.play-users').show();
+        }, 3000);
+    };
+
+    var play = function(page) {
+        digiPetView.router.loadPage('#index');
+        $('#pet').attr("src", '/assets/imgs/dog2.png');
         happiness(25);
         setTimeout(function() {
             $('#pet').attr("src", '/assets/imgs/idle.png');
@@ -167,26 +176,34 @@ var digiPetController = function(app) {
         }, _digiPetState.activityTime);
     };
 
+
     var registerBindings = function() {
-        // Travel
-        $$('.picker-activies .activity-travel').on('click', function() {
+
+        // Play
+        $$('.picker-activies .activity-play').on('click', function() {
             if (__dr) {
                 if (_disclosed === false) {
                     disclosureRequest(function() {
                         _disclosed = true;
-                        travel();
+                        playSearch();
                     });
                 } else {
-                    travel();
+                    playSearch();
                 }
             } else {
                 if (_disclosed === true) {
-                    travel();
+                    playSearch();
                 } else {
                     app.alert('<p>Sorry, this requires GPS permission!</p><p>You can change your preferences in the settings menu!</p>', 'Security Information');
                 }
             }
         });
+
+
+        // eat
+        $$('.play-users .activity-play').on('click', play);
+
+
 
         // eat
         $$('.picker-activies .activity-eat').on('click', eat);

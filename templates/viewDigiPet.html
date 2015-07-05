@@ -2,19 +2,52 @@
 <!-- Top Navbar-->
 <div class="navbar">
     <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="homelink link"> <i class="icon icon-back"></i><span>Home</span></a>
+        </div>
+        <div class="center sliding">DigiPet</div>
+        <div data-page="index" class="navbar-inner cached">
             <div class="left">
                 <a href="#" class="homelink link"> <i class="icon icon-back"></i><span>Home</span></a>
             </div>
-        <div class="center sliding">DigiPet</div>
+            <div class="center sliding">DigiPet</div>
+        </div>
+        <div data-page="play" class="navbar-inner cached">
+            <div class="left sliding">
+                <a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a>
+            </div>
+            <div class="center sliding">DigiPet - Play</div>
+        </div>
     </div>
 </div>
 <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
 <div class="pages navbar-through toolbar-through">
     <!-- Page, "data-page" contains page name -->
-    <div class="page" data-page="main">
+    <div class="page" data-page="index">
         <!-- Scrollable page content -->
         <div class="page-content">
             {{template "pagePet"}}
+        </div>
+    </div>
+    <div class="page cached digipet-play" data-page="play">
+        <div class="page-content">
+            <div class="content-block-title">Searching for other DigiPets</div>
+            <div class="content-block row play-load">
+                <div class="col-20"></div>
+                <div class="col-20"></div>
+                <div class="col-20"><span style="width:42px; height:42px;" class="preloader"></span></div>
+                <div class="col-20"></div>
+                <div class="col-20"></div>
+            </div>
+            <div class="list-block play-users" style="display: none;">
+                <ul>
+                    <li class="item-content">
+                        <div class="item-inner">
+                            <div class="item-title"><a href="#" class="activity-play">John</a></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
@@ -27,7 +60,9 @@
             <li>Your location information is deleted within 24 hours</li>
             <li>No third party will be granted access to your location information</li>
         </ul>
-        <p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p><br/><br/>
+        <p><a target="_blank" onclick="moreInfo()" href="#">more information</a></p>
+        <br/>
+        <br/>
         <p><a href="#" class="button button-big button-round btn-okay">Okay</a></p>
     </div>
 </div>
@@ -60,7 +95,7 @@
                         </div>
                         <div class="row">
                             <div class="col-20">
-                            <span id="happiness"></span>%
+                                <span id="happiness"></span>%
                             </div>
                         </div>
                         <div class="row">
@@ -80,7 +115,7 @@
                                 <p><a href="#" class="button button-round  activity-eat">Eat</a></p>
                             </div>
                             <div class="col-33">
-                                <p><a href="#" class="button button-round activity-travel">Travel</a></p>
+                                <p><a href="#" class="button button-round activity-play">Play</a></p>
                             </div>
                             <div class="col-33">
                                 <p><a href="#" class="button button-round  disabled">Socialize</a></p>
@@ -88,7 +123,7 @@
                         </div>
                         <div class="row">
                             <div class="col-33">
-                                <p><a href="#" class="button button-round  disabled">Play</a></p>
+                                <p><a href="#" class="button button-round  disabled">Travel</a></p>
                             </div>
                             <div class="col-33">
                                 <p><a href="#" class="button button-round  disabled">Cure</a></p>
@@ -106,6 +141,7 @@
 </div>
 <script>
 $(document).ready(function() {
+    digiPetController(myApp);
     $$('.view.view-digipet').on('show', function() {
         digiPetController(myApp);
     });
