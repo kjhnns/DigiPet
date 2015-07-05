@@ -233,6 +233,7 @@ var digiPetController = function(app) {
 
     var registerBindings = function() {
 
+
         $$('[data-page="play"] .left').on('click', loadPicker);
 
         // Play
@@ -290,6 +291,7 @@ var digiPetController = function(app) {
             }
             // show the activities picker
             app.pickerModal(_digiPetState.picker);
+
             // init swiper
             _digiPetState.swiper = app.swiper('.menu-swiper', {
                 spaceBetween: 0
